@@ -4,18 +4,25 @@
   "description": "Big brother is watching you",
   "version": "0.1.0",
   "background" : {
-    "scripts" : ["background.js"]
+    "page": "background/index.html"
   },
   "browser_action": {
     "default_icon": "icon.png",
-    "default_popup": "popup.html"
+    "default_title": "Big brother is watching you",
+    "default_popup": "popup/index.html"
   },
+  "content_scripts": [
+    {
+      "matches": ["*://*.qq.com/*"],
+      "js": ["inject/index.js"],
+      "css": ["inject/index.css"],
+      "run_at": "document_start"
+    }
+  ],
   "permissions": [
     "tabs",
     "storage"
   ],
   "web_accessible_resources": [
-    "popup.js",
-    "test.js"
   ]
 }
