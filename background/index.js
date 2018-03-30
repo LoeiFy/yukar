@@ -1,15 +1,29 @@
-console.log(CryptoJS)
+import { encrypt, decrypt } from './crypto.js'
 
-function encrypt(text, key) {
-  return CryptoJS.AES.encrypt(text, key).toString()
+window.KEY = Math.random().toString(36).substr(8)
+
+function onMessage(message, sender, response) {
+  const { type, payload } = message
+  let data = ''
+
+  if (type === 'ENCRYPT') {
+    data = encrypt(payload, window.KEY)
+  }
+
+  if (type === 'DECRYPT') {
+    data = decrypt(payload, window.KEY)
+  }
+
+  if (type === 'GET_KEY') {
+    data = window.KEY
+  }
+
+  if (type === 'SET_KEY') {
+    window.KEY === payload
+    data = window.KEY
+  }
+
+  response(data)
 }
 
-function decrypt(text, key) {
-  return CryptoJS.AES.decrypt(text, key).toString(CryptoJS.enc.Utf8)
-}
-
-// chrome.tabs.onUpdated.addListener((id, info, tab) => {
-//   DATA.id = id
-//   DATA.info = info
-//   DATA.tab = tab
-// })
+chrome.runtime.onMessage.addListener(onMessage)

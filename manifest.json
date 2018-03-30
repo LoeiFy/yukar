@@ -14,8 +14,8 @@
   "content_scripts": [
     {
       "matches": ["*://*.qq.com/*"],
-      "js": ["inject/index.js"],
-      "css": ["inject/index.css"],
+      "js": ["content/index.js"],
+      "css": ["content/index.css"],
       "run_at": "document_start"
     }
   ],
@@ -24,5 +24,6 @@
     "storage"
   ],
   "web_accessible_resources": [
+    "inject/*"
   ]
 }

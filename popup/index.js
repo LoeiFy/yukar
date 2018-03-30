@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
   const bgPage = chrome.extension.getBackgroundPage()
-  document.querySelector('#button').addEventListener('click', function () {
-    console.log(bgPage.DATA)
+  const input = document.querySelector('#key')
+  const button = document.querySelector('#setkey')
+
+  input.value = bgPage.KEY
+  button.addEventListener('click', function () {
+    bgPage.KEY = input.value
   })
 })
