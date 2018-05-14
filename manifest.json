@@ -1,29 +1,14 @@
 {
   "manifest_version": 2,
-  "name": "bbiwy",
-  "description": "Big brother is watching you",
+  "name": "yukar",
+  "description": "yukar",
   "version": "0.1.0",
-  "background" : {
-    "page": "background/index.html"
-  },
   "browser_action": {
     "default_icon": "icon.png",
-    "default_title": "Big brother is watching you",
+    "default_title": "yukar",
     "default_popup": "popup/index.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["*://*.qq.com/*"],
-      "js": ["content/index.js"],
-      "css": ["content/index.css"],
-      "run_at": "document_start"
-    }
-  ],
   "permissions": [
-    "tabs",
     "storage"
-  ],
-  "web_accessible_resources": [
-    "inject/*"
   ]
 }
