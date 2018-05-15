@@ -3,17 +3,19 @@ import c from '../src/test.js'
 document.addEventListener('DOMContentLoaded', function () {
   console.log(c)
 
-const jsxT = document.getElementById('jsx')
-const editor = CodeMirror.fromTextArea(jsxT, {
-  lineNumbers: true,
-  styleActiveLine: true,
-  matchBrackets: true,
-  mode: 'jsx',
-})
+// const jsxT = document.getElementById('jsx')
+// const editor = CodeMirror.fromTextArea(jsxT, {
+//   lineNumbers: true,
+//   styleActiveLine: true,
+//   matchBrackets: true,
+//   mode: 'jsx',
+// })
 
-editor.setOption('theme', 'idea')
+// editor.setOption('theme', 'idea')
 
 document.getElementById('trigger').addEventListener('click', function() {
+  return document.getElementById('iframe').contentWindow.postMessage({content: '??'}, '*')
+
   const script = document.createElement('script')
 
   const { code } = Babel.transform(editor.doc.getValue(), {

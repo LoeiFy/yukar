@@ -10,5 +10,11 @@
   },
   "permissions": [
     "storage"
-  ]
+  ],
+  "sandbox": {
+    "pages": [
+      "src/iframe.html"
+    ],
+    "content_security_policy": "sandbox allow-scripts; script-src 'self' 'unsafe-inline'"
+  }
 }
