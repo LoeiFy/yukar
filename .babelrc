@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    ["import", {
+      "libraryName": "antd",
+      "style": true
+    }],
+    ["react-css-modules", {
+      "generateScopedName": "[path]__[name]__[local]__[hash:base64:5]",
+      "handleMissingStyleName": "warn"
+    }]
+  ],
+  "presets": ["env", "react"]
+}

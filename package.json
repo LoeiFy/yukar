@@ -1,0 +1,31 @@
+{
+  "name": "yukar",
+  "version": "0.1.0",
+  "description": "yukar",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoeiFy/yukar.git"
+  },
+  "author": "LoeiFy@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LoeiFy/yukar/issues"
+  },
+  "homepage": "https://github.com/LoeiFy/yukar#readme",
+  "dependencies": {
+    "antd": "^3.5.2",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.7.0",
+    "babel-plugin-react-css-modules": "^3.4.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "parcel-bundler": "^1.8.1"
+  }
+}
