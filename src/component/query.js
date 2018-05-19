@@ -17,6 +17,20 @@ class Query {
     return this
   }
 
+  on(events, callback) {
+    const evs = events
+      .split(',')
+      .map(ev => ev.trim())
+
+    this.elements.forEach((e) => {
+      evs.forEach((ev) => {
+        e.addEventListener(ev, callback, false)
+      })
+    })
+
+    return this
+  }
+
   get context() {
     return this.elements.length === 1 ? this.elements[0] : this.elements
   }
