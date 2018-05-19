@@ -4,18 +4,21 @@
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="./vendor/codemirror.css" />
 <script src="./vendor/codemirror.js"></script>
+<script src="./vendor/babel-standalone.js"></script>
 <script type="module" src="./index.js"></script>
 </head>
 <body>
 
-<iframe name="iframe" frameborder="0" src="../src/iframe.html"></iframe>
+<iframe name="iframe" frameborder="0" src="./iframe/index.html"></iframe>
 
 <div id="mode">
-  <button>HTML</button>
-  <button>CSS</button>
-  <button>JavaScript</button>
+  <button value="htmlmixed">HTML</button>
+  <button value="css">CSS</button>
+  <button value="jsx">JavaScript</button>
 </div>
 
 <textarea style="display: none" id="editor"></textarea>
+
+<button id="run">RUN</button>
 </body>
 </html>

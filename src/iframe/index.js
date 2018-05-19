@@ -1,21 +1,18 @@
-document.getElementById('trigger').addEventListener('click', function() {
-  return document.getElementById('iframe').contentWindow.postMessage({content: '??'}, '*')
-
+const createJS = (content) => {
   const script = document.createElement('script')
-
-  const { code } = Babel.transform(editor.doc.getValue(), {
-    presets: ['es2015', 'react'],
-    plugins: [
-      'transform-es2015-modules-umd',
-      'transform-class-properties',
-    ],
-  })
-
-  console.log(code)
-
-  script.innerHTML = code
-
+  script.innerHTML = content
+  script.id = 'script'
   document.head.appendChild(script)
+}
 
-  document.getElementById('result').appendChild(script)
+window.addEventListener('message', ({ data }) => {
+  const { js, css, html } = data
+
+  createJS(js)
 })
+
+window.onload = function () {
+document.getElementById('test').addEventListener('click', function () {
+  window.top.postMessage({ c: 0 }, '*')
+})
+}

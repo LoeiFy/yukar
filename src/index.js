@@ -1,14 +1,10 @@
 import $ from './component/query.js'
+import babel from './component/babel.js'
 
 const code = {
   jsx: '',
   css: '',
   htmlmixed: '',
-}
-const map = {
-  HTML: 'htmlmixed',
-  CSS: 'css',
-  JavaScript: 'jsx',
 }
 
 ;(async () => {
@@ -21,20 +17,34 @@ const map = {
   })
 
   editor.on('change', function ({ doc, options }) {
-    const value = doc.getValue()
-    const { mode } = options
-    code[mode] = value
+    code[options.mode] = doc.getValue()
   })
 
   $('#mode').on('click', function ({ target }) {
-    if (target.tagName !== 'BUTTON') {
-      return
+    if (target.tagName === 'BUTTON') {
+      const { value: mode } = target
+      const { doc } = editor
+      editor.setOption('mode', mode)
+      doc.setValue(code[mode])
     }
-    const { textContent: type } = target
-    const { doc } = editor
+  })
 
-    editor.setOption('mode', map[type])
-    doc.setValue(code[map[type]])
+  $('#run').on('click', function () {
+    const {
+      jsx,
+      css,
+      htmlmixed: html,
+    } = code
+
+    window.frames[0].postMessage({
+      js: babel(jsx),
+      css,
+      html,
+    }, '*')
   })
 
 })()
+
+window.addEventListener('message', (e) => {
+  console.log(e)
+})

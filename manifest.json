@@ -6,15 +6,14 @@
   "browser_action": {
     "default_icon": "icon.png",
     "default_title": "yukar",
-    "default_popup": "popup/index.html"
+    "default_popup": "src/index.html"
   },
   "permissions": [
     "storage"
   ],
   "sandbox": {
     "pages": [
-      "src/iframe.html"
-    ],
-    "content_security_policy": "sandbox allow-scripts; script-src 'self' 'unsafe-inline'"
+      "src/iframe/index.html"
+    ]
   }
 }
