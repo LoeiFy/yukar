@@ -1,18 +1,29 @@
 const createJS = (content) => {
   const script = document.createElement('script')
   script.innerHTML = content
-  script.id = 'script'
   document.head.appendChild(script)
+}
+const createCSS = (content) => {
+  const style = document.createElement('style')
+  style.innerHTML = content
+  document.head.appendChild(style)
+}
+
+function run(code) {
+  const { js, css, html } = code
+  createCSS(css)
+  createJS(js)
 }
 
 window.addEventListener('message', ({ data }) => {
-  const { js, css, html } = data
+  const { type, payload } = data
 
-  createJS(js)
+  if (type === 'reload') {
+    window.location.reload()
+  }
+  if (type === 'code') {
+    run(payload)
+  }
 })
 
-window.onload = function () {
-document.getElementById('test').addEventListener('click', function () {
-  window.top.postMessage({ c: 0 }, '*')
-})
-}
+window.onload = () => window.top.postMessage('ready', '*')

@@ -7,6 +7,8 @@ const code = {
   htmlmixed: '',
 }
 
+let sendedReload = false
+
 ;(async () => {
 
   await $().ready()
@@ -30,6 +32,16 @@ const code = {
   })
 
   $('#run').on('click', function () {
+    window.frames[0].postMessage({ type: 'reload' }, '*')
+    sendedReload = true
+  })
+
+})()
+
+window.addEventListener('message', ({ data }) => {
+  if (data === 'ready' && sendedReload) {
+    sendedReload = false
+
     const {
       jsx,
       css,
@@ -37,14 +49,12 @@ const code = {
     } = code
 
     window.frames[0].postMessage({
-      js: babel(jsx),
-      css,
-      html,
+      type: 'code',
+      payload: {
+        js: babel(jsx),
+        css,
+        html,
+      },
     }, '*')
-  })
-
-})()
-
-window.addEventListener('message', (e) => {
-  console.log(e)
+  }
 })
