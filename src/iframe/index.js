@@ -8,6 +8,9 @@ const createCSS = (content) => {
   style.innerHTML = content
   document.head.appendChild(style)
 }
+const createHTML = (content) => {
+  document.body.innerHTML = content
+}
 
 function sendMessage(data) {
   window.top.postMessage(data, '*')
@@ -15,6 +18,8 @@ function sendMessage(data) {
 
 function run(code) {
   const { js, css, html } = code
+
+  createHTML(html)
   createCSS(css)
   createJS(js)
 }
@@ -31,6 +36,7 @@ window.addEventListener('message', ({ data }) => {
 })
 
 window.onload = () => sendMessage({ type: 'status', payload: 'ready' })
+window.onerror = err => console.error(err)
 
 ;['log', 'error', 'info', 'warn'].forEach((type) => {
   window.console[type] = (...params) => sendMessage({

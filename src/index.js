@@ -1,5 +1,6 @@
 import $ from './component/query.js'
 import babel from './component/babel.js'
+import isotope from './component/isotope.js'
 
 const code = {
   jsx: '',
@@ -16,6 +17,7 @@ let sendedReload = false
   const editor = window.CodeMirror.fromTextArea($('#editor').context, {
     lineNumbers: true,
     mode: 'htmlmixed',
+    tabSize: 2,
   })
 
   editor.on('change', function ({ doc, options }) {
@@ -65,3 +67,22 @@ window.addEventListener('message', ({ data }) => {
     }, '*')
   }
 })
+
+const text = `
+<!DOCTYPE html>
+<html>
+<head>
+</script>
+<script crossorigin src="//unpkg.com/react-dom@16.3.2/umd/react-dom.production.min.js"></script>
+<script>
+window['react'] = window.React;window['reactDom'] = window.ReactDOM
+</script>
+<link rel="stylesheet" href="//unpkg.com/antd@3.5.2/dist/antd.min.css" />
+</head>
+<body>
+<h1>111</h1>
+</body>
+</html>
+`
+
+isotope(text)
