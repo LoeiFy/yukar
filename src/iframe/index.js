@@ -9,6 +9,10 @@ const createCSS = (content) => {
   document.head.appendChild(style)
 }
 
+function sendMessage(data) {
+  window.top.postMessage(data, '*')
+}
+
 function run(code) {
   const { js, css, html } = code
   createCSS(css)
@@ -26,4 +30,14 @@ window.addEventListener('message', ({ data }) => {
   }
 })
 
-window.onload = () => window.top.postMessage('ready', '*')
+window.onload = () => sendMessage({ type: 'status', payload: 'ready' })
+
+;['log', 'error', 'info', 'warn'].forEach((type) => {
+  window.console[type] = (...params) => sendMessage({
+    type: 'log',
+    payload: {
+      method: type,
+      data: params,
+    },
+  })
+})

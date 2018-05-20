@@ -7,6 +7,13 @@ class Query {
     }
   }
 
+  append(content) {
+    this.elements.forEach((e) => {
+      e.innerHTML += content
+    })
+    return this
+  }
+
   addClass(name) {
     this.elements.forEach(e => e.classList.add(name))
     return this

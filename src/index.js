@@ -39,7 +39,14 @@ let sendedReload = false
 })()
 
 window.addEventListener('message', ({ data }) => {
-  if (data === 'ready' && sendedReload) {
+  const { type, payload } = data
+
+  if (type === 'log') {
+    const { method, data } = payload
+    $('#console').append(`<p class="${method}">${data}</p>`)
+  }
+
+  if (type === 'status' && payload === 'ready' && sendedReload) {
     sendedReload = false
 
     const {
