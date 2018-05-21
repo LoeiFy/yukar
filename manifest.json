@@ -13,7 +13,7 @@
   ],
   "sandbox": {
     "pages": [
-      "src/iframe/index.html"
+      "src/iframe.html"
     ]
   }
 }

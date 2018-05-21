@@ -13,20 +13,36 @@ export default function (content) {
   const scripts = fragment.querySelectorAll('script')
   scripts.remove()
 
-  const src = []
+  const csses = fragment.querySelectorAll('link[rel=stylesheet]')
+  csses.remove()
+
+  const styles = fragment.querySelectorAll('style')
+  styles.remove()
+
+  const js = []
   const script = []
+  const css = []
+  const style = []
   const html = fragment.innerHTML
 
-  Array.from(scripts).forEach(({ textContent, src: url }) => {
-    if (url && !textContent) {
-      src.push(url)
+  Array.from(scripts).forEach(({ textContent, src }) => {
+    if (src) {
+      return js.push(src)
     }
-    if (textContent && !url) {
-      script.push(textContent)
+    if (textContent) {
+      return script.push(textContent)
     }
   })
 
-  console.log(script)
-  console.log(html)
-  console.log(src)
+  Array.from(csses).forEach(({ href }) => css.push(href))
+
+  Array.from(styles).forEach(({ textContent }) => style.push(textContent))
+
+  return {
+    script,
+    js,
+    html,
+    css,
+    style,
+  }
 }

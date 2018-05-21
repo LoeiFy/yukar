@@ -1,14 +1,17 @@
 import $ from './component/query.js'
 import babel from './component/babel.js'
 import isotope from './component/isotope.js'
+import fetch from './component/fetch.js'
 
 const code = {
   jsx: '',
   css: '',
   htmlmixed: '',
 }
-
-let sendedReload = false
+const status = {
+  sendedReload: false,
+  running: false,
+}
 
 ;(async () => {
 
@@ -34,8 +37,11 @@ let sendedReload = false
   })
 
   $('#run').on('click', function () {
-    window.frames[0].postMessage({ type: 'reload' }, '*')
-    sendedReload = true
+    if (!status.running) {
+      window.frames[0].postMessage({ type: 'reload' }, '*')
+      status.sendedReload = true
+      status.running = true
+    }
   })
 
 })()
@@ -48,41 +54,54 @@ window.addEventListener('message', ({ data }) => {
     $('#console').append(`<p class="${method}">${data}</p>`)
   }
 
-  if (type === 'status' && payload === 'ready' && sendedReload) {
-    sendedReload = false
+  if (type === 'status' && payload === 'ready' && status.sendedReload) {
+    status.sendedReload = false
 
+    const { htmlmixed, jsx } = code
     const {
-      jsx,
+      script,
+      js,
+      html,
       css,
-      htmlmixed: html,
-    } = code
+      style,
+    } = isotope(htmlmixed)
 
-    window.frames[0].postMessage({
-      type: 'code',
-      payload: {
-        js: babel(jsx),
-        css,
-        html,
-      },
-    }, '*')
+    ;(async () => {
+
+      const urls = js.map(url => ({ url, type: 'js' }))
+        .concat(css.map(url => ({ url, type: 'css' })))
+      const res = await fetch(urls)
+
+      res.forEach(({ data, type }) => {
+        if (type === 'js') {
+          script.unshift(data)
+        }
+        if (type === 'css') {
+          style.push(data)
+        }
+      })
+
+      script.push(babel(jsx))
+      style.push(code.css)
+
+      const payload = { script, style, html }
+
+      console.log(payload)
+
+    })()
+
+    /*
+    const payload = {
+      script,
+      js,
+      html,
+      css,
+      style,
+    }
+
+    window.frames[0].postMessage({ type: 'code', payload }, '*')
+    */
+
+    status.running = false
   }
 })
-
-const text = `
-<!DOCTYPE html>
-<html>
-<head>
-</script>
-<script crossorigin src="//unpkg.com/react-dom@16.3.2/umd/react-dom.production.min.js"></script>
-<script>
-window['react'] = window.React;window['reactDom'] = window.ReactDOM
-</script>
-<link rel="stylesheet" href="//unpkg.com/antd@3.5.2/dist/antd.min.css" />
-</head>
-<body>
-<h1>111</h1>
-</body>
-</html>
-`
-
-isotope(text)
