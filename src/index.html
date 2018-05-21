@@ -3,24 +3,47 @@
 <head>
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="./vendor/codemirror.css" />
+<link rel="stylesheet" href="./index.css" />
 <script src="./vendor/codemirror.js"></script>
 <script src="./vendor/babel-standalone.js"></script>
 <script type="module" src="./index.js"></script>
 </head>
 <body>
+<div class="wrapper">
 
-<iframe name="iframe" frameborder="0" src="./iframe.html"></iframe>
+<div class="top">
+  <div class="left">
+    <div class="logo"></div>
+    <div class="run">
+      <button id="run">Run</button>
+    </div>
+    <div id="mode">
+      <button value="htmlmixed">HTML</button>
+      <button value="css">CSS</button>
+      <button value="jsx">JavaScript</button>
+    </div>
+    <div class="result">
+      <button id="result">Result</button>
+    </div>
+  </div>
 
-<div id="mode">
-  <button value="htmlmixed">HTML</button>
-  <button value="css">CSS</button>
-  <button value="jsx">JavaScript</button>
+  <div class="right">
+    <button id="log">Console</button>
+  </div>
 </div>
 
-<div id="console"></div>
+<div class="tab">
+  <div class="panel">
+    <textarea style="display: none" id="editor"></textarea>
+  </div>
+  <div class="panel">
+    <div id="console"></div>
+  </div>
+  <div class="panel">
+    <iframe name="iframe" frameborder="0" src="./iframe.html"></iframe>
+  </div>
+</div>
 
-<textarea style="display: none" id="editor"></textarea>
-
-<button id="run">RUN</button>
+</div>
 </body>
 </html>
