@@ -1,27 +1,19 @@
-const createJS = (content) => {
-  const script = document.createElement('script')
-  script.innerHTML = content
-  document.head.appendChild(script)
-}
-const createCSS = (content) => {
-  const style = document.createElement('style')
-  style.innerHTML = content
-  document.head.appendChild(style)
-}
-const createHTML = (content) => {
-  document.body.innerHTML = content
-}
+function execute(code) {
+  const { script, style, html } = code
 
-function sendMessage(data) {
-  window.top.postMessage(data, '*')
-}
+  style.forEach((css) => {
+    const e = document.createElement('style')
+    e.innerHTML = css
+    document.head.appendChild(e)
+  })
 
-function run(code) {
-  const { js, css, html } = code
+  document.body.innerHTML = html
 
-  createHTML(html)
-  createCSS(css)
-  createJS(js)
+  script.forEach((js) => {
+    const e = document.createElement('script')
+    e.innerHTML = js
+    document.head.appendChild(e)
+  })
 }
 
 window.addEventListener('message', ({ data }) => {
@@ -31,19 +23,19 @@ window.addEventListener('message', ({ data }) => {
     window.location.reload()
   }
   if (type === 'code') {
-    run(payload)
+    execute(payload)
   }
 })
 
-window.onload = () => sendMessage({ type: 'status', payload: 'ready' })
+window.onload = () => window.top.postMessage({ type: 'status', payload: 'ready' }, '*')
 window.onerror = err => console.error(err)
 
 ;['log', 'error', 'info', 'warn'].forEach((type) => {
-  window.console[type] = (...params) => sendMessage({
+  window.console[type] = (...params) => window.top.postMessage({
     type: 'log',
     payload: {
       method: type,
       data: params,
     },
-  })
+  }, '*')
 })

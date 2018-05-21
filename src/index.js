@@ -59,12 +59,13 @@ window.addEventListener('message', ({ data }) => {
 
     const { htmlmixed, jsx } = code
     const {
-      script,
+      script: headScript,
       js,
       html,
       css,
       style,
     } = isotope(htmlmixed)
+    const script = []
 
     ;(async () => {
 
@@ -74,34 +75,22 @@ window.addEventListener('message', ({ data }) => {
 
       res.forEach(({ data, type }) => {
         if (type === 'js') {
-          script.unshift(data)
+          script.push(data)
         }
         if (type === 'css') {
           style.push(data)
         }
       })
 
+      script.push(headScript)
       script.push(babel(jsx))
       style.push(code.css)
 
       const payload = { script, style, html }
 
-      console.log(payload)
+      window.frames[0].postMessage({ type: 'code', payload }, '*')
+      status.running = false
 
     })()
-
-    /*
-    const payload = {
-      script,
-      js,
-      html,
-      css,
-      style,
-    }
-
-    window.frames[0].postMessage({ type: 'code', payload }, '*')
-    */
-
-    status.running = false
   }
 })
