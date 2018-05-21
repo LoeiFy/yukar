@@ -14,6 +14,9 @@ function execute(code) {
     e.innerHTML = js
     document.head.appendChild(e)
   })
+
+  document.dispatchEvent(new Event('DOMContentLoaded'))
+  window.dispatchEvent(new Event('load'))
 }
 
 window.addEventListener('message', ({ data }) => {

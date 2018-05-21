@@ -17,14 +17,23 @@ const status = {
 
   await $().ready()
 
+  const store = JSON.parse(window.localStorage['yukar'] || '{}')
+
+  Object.keys(store).forEach((key) => {
+    code[key] = store[key]
+  })
+
   const editor = window.CodeMirror.fromTextArea($('#editor').context, {
     lineNumbers: true,
     mode: 'htmlmixed',
     tabSize: 2,
   })
 
+  editor.setValue(code.htmlmixed)
+
   editor.on('change', function ({ doc, options }) {
     code[options.mode] = doc.getValue()
+    window.localStorage.setItem('yukar', JSON.stringify(code))
   })
 
   $('#mode').on('click', function ({ target }) {
