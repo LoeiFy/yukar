@@ -14,6 +14,26 @@ class Query {
     return this
   }
 
+  css(styles) {
+    this.elements.forEach((e) => {
+      Object.keys(styles).forEach((key) => {
+        e.style[key] = styles[key]
+      })
+    })
+    return this
+  }
+
+  html(content) {
+    this.elements.forEach((e) => {
+      e.innerHTML = content
+    })
+    return this
+  }
+
+  hasClass(name) {
+    return this.elements[0].classList.contains(name)
+  }
+
   addClass(name) {
     this.elements.forEach(e => e.classList.add(name))
     return this

@@ -18,7 +18,7 @@
       <button id="run">Run</button>
     </div>
     <div id="mode">
-      <button value="htmlmixed">HTML</button>
+      <button class="active" value="htmlmixed">HTML</button>
       <button value="css">CSS</button>
       <button value="jsx">JavaScript</button>
     </div>
@@ -36,11 +36,16 @@
   <div class="panel">
     <textarea style="display: none" id="editor"></textarea>
   </div>
-  <div class="panel">
-    <div id="console"></div>
-  </div>
-  <div class="panel">
+  <div class="panel" style="overflow: hidden;">
     <iframe name="iframe" frameborder="0" src="./iframe.html"></iframe>
+  </div>
+  <div class="panel console">
+    <div class="log-option">
+      <input id="preserve" type="checkbox" />
+      <label for="preserve">Preserve log</label>
+      <button class="small" id="clear">Clear</button>
+    </div>
+    <div id="console"></div>
   </div>
 </div>
 
