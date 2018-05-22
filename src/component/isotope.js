@@ -6,6 +6,13 @@ NodeList.prototype.remove  = function () {
   }
 }
 
+function urlParser(url) {
+  if (url.indexOf('chrome-extension') === -1) {
+    return url
+  }
+  return url.replace('chrome-extension', 'http')
+}
+
 export default function (content) {
   let fragment = document.createElement('div')
   fragment.innerHTML = content
@@ -27,14 +34,14 @@ export default function (content) {
 
   Array.from(scripts).forEach(({ textContent, src }) => {
     if (src) {
-      return js.push(src)
+      return js.push(urlParser(src))
     }
     if (textContent) {
       return script.push(textContent)
     }
   })
 
-  Array.from(csses).forEach(({ href }) => css.push(href))
+  Array.from(csses).forEach(({ href }) => css.push(urlParser(href)))
 
   Array.from(styles).forEach(({ textContent }) => style.push(textContent))
 

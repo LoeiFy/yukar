@@ -131,6 +131,7 @@ window.addEventListener('message', ({ data }) => {
             ${e}
           </p>
         `)
+        status.running = false
         $('#run').removeClass('loading')
         return $('#log').context.click()
       }
