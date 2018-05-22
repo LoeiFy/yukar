@@ -80,7 +80,10 @@ iframe {
   height: 30px;
 }
 .run {
-  margin: 0 120px 0 20px;
+  margin: 0 70px 0 20px;
+}
+#run {
+  margin-right: 5px;
 }
 #mode {
   display: flex;

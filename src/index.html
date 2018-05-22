@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="./index.css" />
 <script src="./vendor/codemirror.js"></script>
 <script src="./vendor/babel-standalone.js"></script>
+<script src="./vendor/babel-plugin-transform-vue-jsx.js"></script>
 <script type="module" src="./index.js"></script>
 </head>
 <body>
@@ -16,6 +17,8 @@
     <div class="logo"></div>
     <div class="run">
       <button id="run">Run</button>
+      <input type="checkbox" id="vue" />
+      <label for="vue">Vue JSX</label>
     </div>
     <div id="mode">
       <button class="active" value="htmlmixed">HTML</button>
