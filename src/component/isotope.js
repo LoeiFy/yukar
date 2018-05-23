@@ -1,4 +1,4 @@
-NodeList.prototype.remove  = function () {
+NodeList.prototype.remove = function remove() {
   for (let i = this.length - 1; i >= 0; i -= 1) {
     if (this[i] && this[i].parentElement) {
       this[i].parentElement.removeChild(this[i])
@@ -14,7 +14,7 @@ function urlParser(url) {
 }
 
 export default function (content) {
-  let fragment = document.createElement('div')
+  const fragment = document.createElement('div')
   fragment.innerHTML = content
 
   const scripts = fragment.querySelectorAll('script')
@@ -34,10 +34,11 @@ export default function (content) {
 
   Array.from(scripts).forEach(({ textContent, src }) => {
     if (src) {
-      return js.push(urlParser(src))
+      js.push(urlParser(src))
+      return
     }
     if (textContent) {
-      return script.push(textContent)
+      script.push(textContent)
     }
   })
 

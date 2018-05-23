@@ -5,9 +5,9 @@ function replacer(match) {
     return match
   }
 
-  const { href, pathname, origin } = new URL(this.url)
+  const { pathname, origin } = new URL(this.url)
   const url = match
-    .replace(/\"|\'/g, '')
+    .replace(/"|'/g, '')
     .split('url(')[1].split(')')[0]
 
   if (url.charAt(0) === '/') {
@@ -21,16 +21,14 @@ function replacer(match) {
 }
 
 export default function (urls) {
-  const pr = urls.map(({ url, type }) => {
-    return fetch(url)
-      .then(res => res.text())
-      .then((data) => {
-        if (type === 'css') {
-          return Promise.resolve(data.replace(/url\(.*?\)/g, replacer.bind({ url })))
-        }
-        return Promise.resolve(data)
-      })
-      .then(data => ({ data, type }))
-  })
+  const pr = urls.map(({ url, type }) => fetch(url)
+    .then(res => res.text())
+    .then((data) => {
+      if (type === 'css') {
+        return Promise.resolve(data.replace(/url\(.*?\)/g, replacer.bind({ url })))
+      }
+      return Promise.resolve(data)
+    })
+    .then(data => ({ data, type })))
   return Promise.all(pr)
 }

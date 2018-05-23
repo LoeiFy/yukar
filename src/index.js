@@ -11,13 +11,12 @@ const code = {
 const status = {
   sendedReload: false,
   running: false,
-}
+};
 
-;(async () => {
-
+(async () => {
   await $().ready()
 
-  const store = JSON.parse(window.localStorage['yukar'] || '{}')
+  const store = JSON.parse(window.localStorage.yukar || '{}')
 
   Object.keys(store).forEach((key) => {
     code[key] = store[key]
@@ -32,12 +31,12 @@ const status = {
 
   editor.setValue(code.htmlmixed)
 
-  editor.on('change', function ({ doc, options }) {
+  editor.on('change', ({ doc, options }) => {
     code[options.mode] = doc.getValue()
     window.localStorage.setItem('yukar', JSON.stringify(code))
   })
 
-  $('#mode').on('click', function ({ target }) {
+  $('#mode').on('click', ({ target }) => {
     if (target.tagName === 'BUTTON') {
       const { value: mode } = target
       const { doc } = editor
@@ -51,7 +50,7 @@ const status = {
     }
   })
 
-  $('#run').on('click', function () {
+  $('#run').on('click', function run() {
     if (!status.running) {
       window.frames[0].postMessage({ type: 'reload' }, '*')
       status.sendedReload = true
@@ -64,26 +63,25 @@ const status = {
     }
   })
 
-  $('#result').on('click', function () {
+  $('#result').on('click', function result() {
     $('button').removeClass('active')
     $(this).addClass('active')
     $('.tab').css({ transform: 'translateX(-100%)' })
   })
 
-  $('#log').on('click', function () {
+  $('#log').on('click', function log() {
     $('button').removeClass('active')
     $(this).addClass('active')
     $('.tab').css({ transform: 'translateX(-200%)' })
   })
 
-  $('#clear').on('click', function () {
+  $('#clear').on('click', () => {
     $('#console').html('')
   })
-
 })()
 
-window.addEventListener('message', ({ data }) => {
-  const { type, payload } = data
+window.addEventListener('message', ({ data: info }) => {
+  const { type, payload } = info
 
   if (type === 'log') {
     const { method, data } = payload
@@ -106,21 +104,20 @@ window.addEventListener('message', ({ data }) => {
       css,
       style,
     } = isotope(htmlmixed)
-    const script = []
+    const script = [];
 
-    ;(async () => {
-
+    (async () => {
       const urls = js.map(url => ({ url, type: 'js' }))
         .concat(css.map(url => ({ url, type: 'css' })))
 
       try {
         const res = await fetch(urls)
 
-        res.forEach(({ data, type }) => {
-          if (type === 'js') {
+        res.forEach(({ data, type: kind }) => {
+          if (kind === 'js') {
             script.push(data)
           }
-          if (type === 'css') {
+          if (kind === 'css') {
             style.push(data)
           }
         })
@@ -133,16 +130,16 @@ window.addEventListener('message', ({ data }) => {
         `)
         status.running = false
         $('#run').removeClass('loading')
-        return $('#log').context.click()
+        $('#log').context.click()
+
+        return
       }
 
       script.push(headScript)
       script.push(babel(jsx))
       style.push(code.css)
 
-      const payload = { script, style, html }
-
-      window.frames[0].postMessage({ type: 'code', payload }, '*')
+      window.frames[0].postMessage({ type: 'code', payload: { script, style, html } }, '*')
 
       status.running = false
 
@@ -150,7 +147,6 @@ window.addEventListener('message', ({ data }) => {
       if (!$('#log').hasClass('active')) {
         $('#result').context.click()
       }
-
     })()
   }
 })

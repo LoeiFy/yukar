@@ -31,9 +31,9 @@ window.addEventListener('message', ({ data }) => {
 })
 
 window.onload = () => window.top.postMessage({ type: 'status', payload: 'ready' }, '*')
-window.onerror = err => console.error(err)
+window.onerror = err => console.error(err); // eslint-disable-line no-console
 
-;['log', 'error', 'info', 'warn'].forEach((type) => {
+['log', 'error', 'info', 'warn'].forEach((type) => {
   window.console[type] = (...params) => window.top.postMessage({
     type: 'log',
     payload: {

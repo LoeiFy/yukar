@@ -1,4 +1,5 @@
 import $ from './query.js'
+
 const { Babel } = window
 
 Babel.registerPlugin('transform-vue-jsx', window['babel-plugin-transform-vue-jsx'])

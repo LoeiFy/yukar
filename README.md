@@ -1,13 +1,12 @@
 # yukar
 
-JavaScript Code Editor, Chrome Extension
+Chrome Extension JavaScript Code Editor
 
 ## feature
 
 - ES6 / 7
 - JSX / Vue JSX
 - Offline Use
-- Console
 
 ## Example
 
