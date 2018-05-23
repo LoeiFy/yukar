@@ -31,7 +31,11 @@ window.addEventListener('message', ({ data }) => {
 })
 
 window.onload = () => window.top.postMessage({ type: 'status', payload: 'ready' }, '*')
-window.onerror = err => console.error(err); // eslint-disable-line no-console
+window.onerror = (error) => {
+  const msg = error.indexOf('Script error') > -1 ?
+    `${error} Maybe the object could not be cloned` : error
+  return console.error(msg) // eslint-disable-line no-console
+};
 
 ['log', 'error', 'info', 'warn'].forEach((type) => {
   window.console[type] = (...params) => window.top.postMessage({

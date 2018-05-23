@@ -2,6 +2,7 @@ import $ from './component/query.js'
 import babel from './component/babel.js'
 import isotope from './component/isotope.js'
 import fetch from './component/fetch.js'
+import log from './component/log.js'
 
 const code = {
   jsx: '',
@@ -69,7 +70,7 @@ const status = {
     $('.tab').css({ transform: 'translateX(-100%)' })
   })
 
-  $('#log').on('click', function log() {
+  $('#log').on('click', function showLog() {
     $('button').removeClass('active')
     $(this).addClass('active')
     $('.tab').css({ transform: 'translateX(-200%)' })
@@ -85,12 +86,7 @@ window.addEventListener('message', ({ data: info }) => {
 
   if (type === 'log') {
     const { method, data } = payload
-    $('#console').append(`
-      <p class="${method}">
-        <span>${new Date().toISOString().split('.')[0]}</span>
-        ${data}
-      </p>
-    `)
+    $('#console').append(log(method, data))
   }
 
   if (type === 'status' && payload === 'ready' && status.sendedReload) {
@@ -121,23 +117,19 @@ window.addEventListener('message', ({ data: info }) => {
             style.push(data)
           }
         })
+
+        script.push(headScript)
+        script.push(babel(jsx))
+        style.push(code.css)
       } catch (e) {
-        $('#console').append(`
-          <p class="error">
-            <span>${new Date().toISOString().split('.')[0]}</span>
-            ${e}
-          </p>
-        `)
         status.running = false
+
+        $('#console').append(log('error', e))
         $('#run').removeClass('loading')
         $('#log').context.click()
 
         return
       }
-
-      script.push(headScript)
-      script.push(babel(jsx))
-      style.push(code.css)
 
       window.frames[0].postMessage({ type: 'code', payload: { script, style, html } }, '*')
 

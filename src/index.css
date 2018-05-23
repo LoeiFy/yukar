@@ -37,6 +37,9 @@ button.small {
   font-size: 12px;
   padding: 0 10px;
 }
+button.primary {
+  border-color: #507b66;
+}
 button.active {
   border-color: #507b66;
   background-color: #507b66;
@@ -121,7 +124,8 @@ iframe {
   margin: 0;
   font-size: 13px;
   border-bottom: 1px solid #eee;
-  padding: 5px;
+  padding: 5px 10px;
+  white-space: pre;
 }
 #console p::before {
   content: '>';
