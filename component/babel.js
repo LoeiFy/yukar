@@ -1,10 +1,8 @@
-import $ from './query.js'
-
 const { Babel } = window
 
 Babel.registerPlugin('transform-vue-jsx', window['babel-plugin-transform-vue-jsx'])
 
-export default function (js) {
+export default function (js, vue) {
   const presets = ['es2015', 'react']
   const plugins = [
     'transform-es2015-modules-umd',
@@ -12,7 +10,7 @@ export default function (js) {
     'transform-decorators-legacy',
   ]
 
-  if ($('#vue').context.checked) {
+  if (vue) {
     plugins.push('transform-vue-jsx')
   }
 

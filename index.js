@@ -123,7 +123,7 @@ window.addEventListener('message', ({ data: info }) => {
         })
 
         script.push(headScript)
-        script.push(babel(jsx))
+        script.push(babel(jsx, $('#vue').context.checked))
         style.push(code.css)
       } catch (e) {
         status.running = false
