@@ -2,6 +2,8 @@
 
 Chrome Extension JavaScript Code Editor
 
+Install yukar: https://chrome.google.com/webstore/detail/yukar/ilbmpnheigbnilnbknenakbkkdmaemlp
+
 ## feature
 
 - ES6 / 7
