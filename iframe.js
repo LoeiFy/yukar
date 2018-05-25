@@ -19,6 +19,10 @@ function execute(code) {
   window.dispatchEvent(new Event('load'))
 }
 
+function throwError() {
+  window.alert('No support this method.') // eslint-disable-line no-alert
+}
+
 window.addEventListener('message', ({ data }) => {
   const { type, payload } = data
 
@@ -69,7 +73,7 @@ window.alert = (msg) => {
       lineHeight: 1.4,
     },
     button: {
-      margin: '15px auto 0',
+      margin: '30px auto 0',
       backgroundColor: '#0366d6',
       padding: '6px 20px',
       fontSize: '14px',
@@ -100,6 +104,11 @@ window.alert = (msg) => {
   view.appendChild(inner)
   document.body.appendChild(view)
 }
+
+window.prompt = throwError
+window.confirm = throwError
+window.close = throwError
+window.open = throwError
 
 window.onload = () => window.top.postMessage({ type: 'status', payload: 'ready' }, '*')
 window.onerror = (error) => {
