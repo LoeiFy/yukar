@@ -18,6 +18,7 @@ const status = {
   await $().ready()
 
   const store = JSON.parse(window.localStorage.yukar || '{}')
+  const { mode: current = 'htmlmixed' } = window.localStorage
 
   Object.keys(store).forEach((key) => {
     code[key] = store[key]
@@ -25,16 +26,19 @@ const status = {
 
   const editor = window.CodeMirror.fromTextArea($('#editor').context, {
     lineNumbers: true,
-    mode: 'htmlmixed',
+    mode: current,
     lineWrapping: true,
     tabSize: 2,
   })
 
-  editor.setValue(code.htmlmixed)
+  editor.setValue(code[current])
+
+  $(`#${current}`).addClass('active')
 
   editor.on('change', ({ doc, options }) => {
     code[options.mode] = doc.getValue()
     window.localStorage.setItem('yukar', JSON.stringify(code))
+    window.localStorage.setItem('mode', options.mode)
   })
 
   $('#mode').on('click', ({ target }) => {
