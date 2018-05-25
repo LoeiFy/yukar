@@ -4,7 +4,7 @@
   "private": true,
   "description": "Chrome Extension JavaScript Code Editor",
   "scripts": {
-    "test": "eslint ./src"
+    "test": "eslint ./"
   },
   "repository": {
     "type": "git",

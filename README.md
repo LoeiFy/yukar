@@ -157,4 +157,4 @@ new Vue({
 
 ## Related
 
-<img src="https://images-na.ssl-images-amazon.com/images/I/61vGizpMD1L.jpg" width="300" />
+<img src="https://images-na.ssl-images-amazon.com/images/I/61vGizpMD1L.jpg" width="150" />
