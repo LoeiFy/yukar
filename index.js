@@ -20,7 +20,7 @@ const status = {
 
   const template = new Template('#popup')
   const store = JSON.parse(window.localStorage.yukar || '{}')
-  const { mode: current = 'htmlmixed' } = window.localStorage
+  const { mode: current = 'htmlmixed', jsxMode = '' } = window.localStorage
 
   Object.keys(store).forEach((key) => {
     code[key] = store[key]
@@ -49,6 +49,14 @@ const status = {
     code.jsx = value.jsx
     editor.setValue(code[mode])
   }
+
+  if (jsxMode === 'vue') {
+    $('#vue').context.setAttribute('checked', true)
+  }
+
+  $('#vue').on('change', function changeMode() {
+    window.localStorage.setItem('jsxMode', this.checked ? 'vue' : '')
+  })
 
   $('#tpl').on('click', () => template.open())
 
