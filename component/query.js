@@ -58,6 +58,10 @@ class Query {
     return this
   }
 
+  find(dom) {
+    return this.elements[0].querySelectorAll(dom)
+  }
+
   get context() {
     return this.elements.length === 1 ? this.elements[0] : this.elements
   }

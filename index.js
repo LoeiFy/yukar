@@ -3,6 +3,7 @@ import babel from './component/babel.js'
 import isotope from './component/isotope.js'
 import fetch from './component/fetch.js'
 import log from './component/log.js'
+import Template from './component/template.js'
 
 const code = {
   jsx: '',
@@ -17,6 +18,7 @@ const status = {
 (async () => {
   await $().ready()
 
+  const template = new Template('#popup')
   const store = JSON.parse(window.localStorage.yukar || '{}')
   const { mode: current = 'htmlmixed' } = window.localStorage
 
@@ -40,6 +42,15 @@ const status = {
     window.localStorage.setItem('yukar', JSON.stringify(code))
     window.localStorage.setItem('mode', options.mode)
   })
+
+  template.onChange = (value) => {
+    const { mode } = editor.options
+    code.htmlmixed = value.htmlmixed
+    code.jsx = value.jsx
+    editor.setValue(code[mode])
+  }
+
+  $('#tpl').on('click', () => template.open())
 
   $('#mode').on('click', ({ target }) => {
     if (target.tagName === 'BUTTON') {

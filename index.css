@@ -22,7 +22,7 @@ button {
   cursor: pointer;
   border: 1px solid #d9d9d9;
   white-space: nowrap;
-  padding: 0 15px;
+  padding: 0 14px;
   outline: none;
   height: 30px;
   box-sizing: border-box;
@@ -70,7 +70,7 @@ iframe {
   border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
-  padding: 0 15px;
+  padding: 0 10px;
   align-items: center;
 }
 .left {
@@ -83,10 +83,16 @@ iframe {
   height: 30px;
 }
 .run {
-  margin: 0 70px 0 20px;
+  margin: 0 30px 0 14px;
+}
+#tpl {
+  margin-left: 15px;
+  color: #507b66;
+  text-decoration: underline;
+  cursor: pointer;
 }
 #run {
-  margin-right: 5px;
+  margin-right: 2px;
 }
 #mode {
   display: flex;
@@ -166,4 +172,55 @@ iframe {
 }
 #console {
   flex: 1;
+}
+#popup {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9999;
+  opacity: 0;
+  transition: all .3s ease;
+  visibility: hidden;
+}
+#popup.active {
+  opacity: 1;
+  visibility: visible;
+}
+#popup > div {
+  width: 100%;
+  position: relative;
+  background: #507b66;
+  color: #fff;
+  padding: 20px 0 30px 150px;
+  transition: all .3s ease;
+  transform: translateY(-100%);
+}
+#popup.active > div {
+  transform: translateY(0);
+}
+#popup .close {
+  position: absolute;
+  left: 20px;
+  color: #fff;
+  top: 30px;
+  cursor: pointer;
+}
+#popup .close::before {
+  content: '+';
+  margin-right: 5px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  vertical-align: baseline;
+  transform: rotate(45deg);
+}
+#popup p {
+  margin: 0 0 20px;
+}
+#popup button {
+  box-shadow: 0 4px 4px rgba(0,0,0,.1);
+  border: none;
+  margin: 0 10px 10px 0;
 }
