@@ -1,6 +1,10 @@
 import $ from './query.js'
 
 const codes = {
+  Empty: {
+    htmlmixed: '',
+    jsx: '',
+  },
   Vue: {
     htmlmixed: `<script src="//unpkg.com/vue"></script>
 
