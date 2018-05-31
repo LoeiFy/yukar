@@ -131,18 +131,21 @@ window.close = throwError
 window.open = throwError
 
 window.onload = () => window.top.postMessage({ type: 'status', payload: 'ready' }, '*')
-window.onerror = (error) => {
-  const msg = error.indexOf('Script error') > -1 ?
-    `${error} Maybe the object could not be cloned` : error
-  return console.error(msg) // eslint-disable-line no-console
-};
+window.onerror = error => console.error(error); // eslint-disable-line no-console
 
 ['log', 'error', 'info', 'warn'].forEach((type) => {
-  window.console[type] = (...params) => window.top.postMessage({
-    type: 'log',
-    payload: {
-      method: type,
-      data: params,
-    },
-  }, '*')
+  window.console[type] = (...params) => {
+    function sendLog(method, data) {
+      window.top.postMessage({
+        type: 'log',
+        payload: { method, data },
+      }, '*')
+    }
+
+    try {
+      sendLog(type, params)
+    } catch (e) {
+      sendLog(type, params.map(param => Object.prototype.toString.call(param)))
+    }
+  }
 })
