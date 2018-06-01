@@ -3,6 +3,7 @@ import babel from './component/babel.js'
 import isotope from './component/isotope.js'
 import fetch from './component/fetch.js'
 import log from './component/log.js'
+import keywords from './component/keyword.js'
 import Template from './component/template.js'
 
 const code = {
@@ -30,12 +31,41 @@ const status = {
     lineNumbers: true,
     mode: current,
     lineWrapping: true,
+    styleActiveLine: true,
     tabSize: 2,
   })
+
+  const { javascript: jhint } = window.CodeMirror.hint
+  window.CodeMirror.hint.javascript = (ctx) => {
+    const inner = jhint(ctx)
+    const { line, ch } = ctx.getCursor()
+    const { anchor, head } = ctx.findWordAt({ line, ch })
+    const word = ctx.getRange({ line, ch: anchor.ch }, { line, ch: head.ch })
+
+    keywords.forEach((keyword) => {
+      if (keyword.indexOf(word) > -1) {
+        inner.list.push(keyword)
+      }
+    })
+
+    return inner
+  }
 
   editor.setValue(code[current])
 
   $(`#${current}`).addClass('active')
+
+  editor.on('inputRead', (ctx, input) => {
+    if (
+      input.origin !== '+input' ||
+      input.text[0] === ';' ||
+      input.text[0] === ',' ||
+      input.text[0] === ' '
+    ) {
+      return
+    }
+    window.CodeMirror.commands.autocomplete(ctx, null, { completeSingle: false })
+  })
 
   editor.on('change', ({ doc, options }) => {
     code[options.mode] = doc.getValue()
@@ -47,6 +77,7 @@ const status = {
     const { mode } = editor.options
     code.htmlmixed = value.htmlmixed
     code.jsx = value.jsx
+    code.css = ''
     editor.setValue(code[mode])
   }
 
