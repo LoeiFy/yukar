@@ -4,7 +4,9 @@
   "private": true,
   "description": "Chrome Extension JavaScript Code Editor",
   "scripts": {
-    "test": "eslint ./"
+    "test": "eslint ./",
+    "prebuild": "npm t",
+    "build": "node pack.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +19,10 @@
   },
   "homepage": "https://github.com/LoeiFy/yukar#readme",
   "dependencies": {
+    "archiver": "^2.1.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.12.0"
+    "eslint-plugin-import": "^2.12.0",
+    "fs-extra": "^6.0.1"
   }
 }
