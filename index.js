@@ -35,21 +35,32 @@ const status = {
     tabSize: 2,
   })
 
-  const { javascript: jhint } = window.CodeMirror.hint
-  window.CodeMirror.hint.javascript = (ctx) => {
-    const inner = jhint(ctx)
-    const { line, ch } = ctx.getCursor()
-    const { anchor, head } = ctx.findWordAt({ line, ch })
-    const word = ctx.getRange({ line, ch: anchor.ch }, { line, ch: head.ch })
+  const hintList = ['html', 'css', 'javascript']
+  const hints = { ...window.CodeMirror.hint }
 
-    keywords.forEach((keyword) => {
-      if (keyword.indexOf(word) > -1) {
-        inner.list.push(keyword)
+  hintList.forEach((ht) => {
+    window.CodeMirror.hint[ht] = (ctx) => {
+      const cursor = ctx.getCursor()
+      const { line, ch } = cursor
+      const { anchor, head } = ctx.findWordAt({ line, ch })
+      const inner = hints[ht](ctx) || { from: cursor, to: cursor, list: [] }
+      const word = ctx.getRange({ line, ch: anchor.ch }, { line, ch: head.ch })
+
+      if (ht === 'javascript') {
+        keywords.forEach((keyword) => {
+          if (keyword.indexOf(word) > -1 && keyword.charAt(0) === word.charAt(0)) {
+            inner.list.push(keyword)
+          }
+        })
       }
-    })
 
-    return inner
-  }
+      if (word && 'abcdefghijklmnopqrstuvwxyz'.indexOf(word.slice(-1).toLowerCase()) === -1) {
+        inner.list = []
+      }
+
+      return inner
+    }
+  })
 
   editor.setValue(code[current])
 
