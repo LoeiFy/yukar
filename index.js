@@ -189,7 +189,7 @@ window.addEventListener('message', ({ data: info }) => {
       } catch (e) {
         status.running = false
 
-        $('#console').append(log('error', e))
+        $('#console').append(log('error', [e.message || 'code transform error']))
         $('#run').removeClass('loading')
         $('#log').context.click()
 
