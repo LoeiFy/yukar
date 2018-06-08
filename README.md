@@ -23,6 +23,21 @@ Install yukar: https://chrome.google.com/webstore/detail/yukar/ilbmpnheigbnilnbk
 
 ## Changelog
 
+### 0.2.0
+
+- Bug fixed
+
+  * fix `window.alert` broke page. disable `window.open`, `window.confirm`, `window.close`, `window.prompt`
+  * tab `console` style fixed.
+
+- Features
+
+  * code templates `Vue`, `Vue JSX`, `React`, `Antd`, `Element`
+  * remember JSX mode
+  * tab `console` can log more data types
+  * highlight current line
+  * code hint
+
 ### 0.1.0
 
 - initial version
