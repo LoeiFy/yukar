@@ -146,7 +146,7 @@ iframe {
 #console p span {
   display: inline-block;
   vertical-align: top;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 #console p span:first-child {
   margin-right: 5px;

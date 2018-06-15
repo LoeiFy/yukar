@@ -5,10 +5,14 @@ function replacer(match) {
     return match
   }
 
-  const { pathname, origin } = new URL(this.url)
+  const { pathname, origin, protocol } = new URL(this.url)
   const url = match
     .replace(/"|'/g, '')
     .split('url(')[1].split(')')[0]
+
+  if (url.charAt(0) === '/' && url.charAt(1) === '/') {
+    return `url(${protocol}${url})`
+  }
 
   if (url.charAt(0) === '/') {
     return `url(${origin}${url})`
