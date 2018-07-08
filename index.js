@@ -14,9 +14,9 @@ const code = {
 const status = {
   sendedReload: false,
   running: false,
-};
+}
 
-(async () => {
+;(async () => {
   await $().ready()
 
   const template = new Template('#popup')
@@ -165,9 +165,9 @@ window.addEventListener('message', ({ data: info }) => {
       css,
       style,
     } = isotope(htmlmixed)
-    const script = [];
+    const script = []
 
-    (async () => {
+    ;(async () => {
       const urls = js.map(url => ({ url, type: 'js' }))
         .concat(css.map(url => ({ url, type: 'css' })))
 
