@@ -108,6 +108,27 @@ ReactDOM.render(
 })
     `,
   },
+  iView: {
+    htmlmixed: `<script src="//unpkg.com/vue"></script>
+<script src="//unpkg.com/iview"></script>
+<link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css" />
+
+<div id="app">
+  <i-button type="primary" @click="info">Display info prompt</i-button>
+</div
+    `,
+    jsx: `var Main = {
+  methods: {
+    info () {
+      this.$Message.info('This is a info tip');
+    },
+  }
+}
+
+var Component = Vue.extend(Main)
+new Component().$mount('#app')
+    `,
+  },
 }
 
 export default class {

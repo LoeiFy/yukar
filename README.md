@@ -4,11 +4,10 @@ Chrome Extension JavaScript Code Editor
 
 Install yukar: https://chrome.google.com/webstore/detail/yukar/ilbmpnheigbnilnbknenakbkkdmaemlp
 
-## feature
+## Feature
 
 - ES6 / 7
 - JSX / Vue JSX
-- Offline Supports
 - Built-in Code Templates
 
 ## Images
