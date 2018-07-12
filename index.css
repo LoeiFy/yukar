@@ -199,8 +199,9 @@ iframe {
   position: relative;
   background: #507b66;
   color: #fff;
-  padding: 20px 0 30px 150px;
+  padding: 20px 150px 30px 150px;
   transition: all .3s ease;
+  box-sizing: border-box;
   transform: translateY(-100%);
 }
 #popup.active > div {

@@ -129,6 +129,94 @@ var Component = Vue.extend(Main)
 new Component().$mount('#app')
     `,
   },
+  'Material-Ui': {
+    htmlmixed: `<script src="//unpkg.com/react/umd/react.development.js"></script>
+<script src="//unpkg.com/react-dom/umd/react-dom.development.js"></script>
+<script src="//unpkg.com/@material-ui/core/umd/material-ui.production.min.js"></script>
+<script>window['react'] = window.React;window['reactDom'] = window.ReactDOM</script>
+<script>window['materialUi']=window['material-ui']</script>
+
+<div id="root"></div>
+    `,
+    jsx: `import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import {
+  withStyles,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Button,
+} from '@material-ui';
+
+const styles = theme => ({
+  button: {
+    display: 'block',
+    marginTop: theme.spacing.unit * 2,
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
+});
+
+class ControlledOpenSelect extends React.Component {
+  state = {
+    age: '',
+    open: false,
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <form autoComplete="off">
+        <Button className={classes.button} onClick={this.handleOpen}>
+          Open the select
+        </Button>
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="demo-controlled-open-select">Age</InputLabel>
+          <Select
+            open={this.state.open}
+            onClose={this.handleClose}
+            onOpen={this.handleOpen}
+            value={this.state.age}
+            onChange={this.handleChange}
+            inputProps={{
+              name: 'age',
+              id: 'demo-controlled-open-select',
+            }}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+      </form>
+    );
+  }
+}
+
+const App = withStyles(styles)(ControlledOpenSelect);
+
+ReactDOM.render(<App />, document.getElementById('root'))
+    `,
+  },
 }
 
 export default class {
