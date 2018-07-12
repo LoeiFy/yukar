@@ -5,6 +5,7 @@ import fetch from './component/fetch.js'
 import log from './component/log.js'
 import keywords from './component/keyword.js'
 import Template from './component/template.js'
+import exportFile from './component/export.js'
 
 const code = {
   jsx: '',
@@ -143,6 +144,10 @@ const status = {
 
   $('#clear').on('click', () => {
     $('#console').html('')
+  })
+
+  $('#export').on('click', () => {
+    exportFile(code, $('#vue').context.checked)
   })
 })()
 
