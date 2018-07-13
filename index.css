@@ -234,7 +234,10 @@ iframe {
 
 #export {
   display: inline-block;
-  vertical-align: middle;
   margin-left: 5px;
   cursor: pointer;
+  padding: 0 8px;
+}
+#export img {
+  vertical-align: sub;
 }
