@@ -9,6 +9,8 @@ Install yukar: https://chrome.google.com/webstore/detail/yukar/ilbmpnheigbnilnbk
 - ES6 / 7
 - JSX / Vue JSX
 - Built-in Code Templates
+- Offline Support
+- Code Export
 
 ## Images
 
@@ -33,12 +35,12 @@ Install yukar: https://chrome.google.com/webstore/detail/yukar/ilbmpnheigbnilnbk
 
 - Features
 
-  * remove es2015 preset
+  * remove Babel es2015 preset
   * reenable `alert` `prompt` `confirm` `close` `open` methods (chrome `65`)
-  * check if need `umd` transform
+  * check if need Babel `umd` transform
   * add `iView` template
   * add `Material-UI` template
-  * add export feature
+  * add code export feature
   * offline enabled setting
   * minimum chrome version `65` https://bugs.chromium.org/p/chromium/issues/detail?id=769012
 
