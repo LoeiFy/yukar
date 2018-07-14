@@ -22,6 +22,26 @@ Install yukar: https://chrome.google.com/webstore/detail/yukar/ilbmpnheigbnilnbk
 
 ## Changelog
 
+### 0.3.0
+
+- Bug fixed
+
+  * console tab style fixed
+  * assets url fixed
+  * object rest error fixed
+  * page overflow scroll fixed
+
+- Features
+
+  * remove es2015 preset
+  * reenable `alert` `prompt` `confirm` `close` `open` methods (chrome `65`)
+  * check if need `umd` transform
+  * add `iView` template
+  * add `Material-UI` template
+  * add export feature
+  * offline enabled setting
+  * minimum chrome version `65` https://bugs.chromium.org/p/chromium/issues/detail?id=769012
+
 ### 0.2.0
 
 - Bug fixed
