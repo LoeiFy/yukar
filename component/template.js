@@ -115,7 +115,7 @@ ReactDOM.render(
 
 <div id="app">
   <i-button type="primary" @click="info">Display info prompt</i-button>
-</div
+</div>
     `,
     jsx: `var Main = {
   methods: {

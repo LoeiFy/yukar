@@ -40,7 +40,7 @@ button.small {
 button.primary {
   border-color: #507b66;
   padding: 0;
-  width: 60px;
+  width: 50px;
 }
 button.active {
   border-color: #507b66;
@@ -49,10 +49,6 @@ button.active {
 }
 button.loading {
   cursor: not-allowed;
-  color: rgba(0,0,0,.25);
-}
-button.loading::after {
-  content: ' ...';
 }
 iframe {
   width: 100%;
@@ -67,6 +63,7 @@ iframe {
 }
 
 .top {
+  user-select: none;
   height: 46px;
   box-sizing: border-box;
   border-bottom: 1px solid #eee;
@@ -96,6 +93,24 @@ iframe {
 #run {
   margin-right: 2px;
 }
+#run.loading {
+  position: relative;
+  text-indent: -9999px;
+}
+#run.loading::before {
+  content: '';
+  border: 2px solid transparent;
+  border-bottom-color: #666;
+  border-right-color: #666;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: 17px;
+  top: 7px;
+  animation: loading 1s linear forwards infinite;
+}
+@keyframes loading { 100% { transform: rotate(360deg) } }
 #mode {
   display: flex;
   margin-right: 20px;
